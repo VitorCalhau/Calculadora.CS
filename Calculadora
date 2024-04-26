@@ -1,0 +1,106 @@
+namespace Calculadora
+{
+
+    class Program
+    {
+
+        static void Main(string[] args)
+        {
+            double num1 = 0;
+            double num2 = 0;
+            string escolha;
+            double resultado;
+            string DeNovo = "Y";
+            bool repetir1 = true;
+            bool repetir2 = true;
+
+            Console.WriteLine("------------------------------------------------");
+            Console.WriteLine("                 Calculadora");
+            Console.WriteLine("------------------------------------------------");
+            while (DeNovo == "Y")
+            {
+                while (repetir1)
+                {
+                    repetir1 = false;
+                    Console.Write("Escolha o primeiro número ");
+                    try
+                    {
+                        num1 = Convert.ToDouble(Console.ReadLine());
+                    }
+                    catch (Exception)
+                    {
+                        Console.WriteLine("digite um número por favor");
+                        repetir1 = true;
+                    }
+                }
+                while (repetir2)
+                {
+                    repetir2 = false;
+                    Console.Write("Escolha o segundo número ");
+                    try
+                    {
+                        num2 = Convert.ToDouble(Console.ReadLine());
+                    }
+                    catch (Exception)
+                    {
+                        Console.WriteLine("digite um número por favor");
+                        repetir2 = true;
+                    }
+                }
+
+                Console.WriteLine("Escolha a operação");
+                Console.WriteLine("1 - Adição");
+                Console.WriteLine("2 - Subtração");
+                Console.WriteLine("3 - Multiplicação");
+                Console.WriteLine("4 -  Divisão");
+
+                escolha = Console.ReadLine();
+                switch (escolha)
+                {
+                    case "1":
+                        resultado = Adição(num1, num2);
+                        Console.WriteLine($"O resultado é {resultado}");
+                        break;
+
+                    case "2":
+                        resultado = Subtração(num1, num2);
+                        Console.WriteLine($"O resultado é {resultado}");
+                        break;
+
+                    case "3":
+                        resultado = Multiplicação(num1, num2);
+                        Console.WriteLine($"O resultado é {resultado}");
+                        break;
+
+                    case "4":
+                        resultado = Divisão(num1, num2);
+                        Console.WriteLine($"O resultado é {resultado}");
+                        break;
+                }
+                Console.WriteLine("Usar Calculadora novamente ? (Y/N)");
+                DeNovo = Console.ReadLine().ToUpper();
+            }
+
+            static double Adição(double num1, double num2)
+            {
+                return num1 + num2;
+            }
+
+            static double Subtração(double num1, double num2)
+            {
+                return num1 - num2;
+            }
+
+            static double Multiplicação(double num1, double num2)
+            {
+                return num1 * num2;
+            }
+
+            static double Divisão(double num1, double num2)
+            {
+                return num1 / num2;
+            }
+            Console.ReadKey();
+        }
+    }
+}
