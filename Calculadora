@@ -1,106 +1,80 @@
-namespace Calculadora
+class Program
 {
-
-    class Program
+    static void Main(string[] args)
     {
+        bool sair = false;
 
-        static void Main(string[] args)
+        do
         {
-            double num1 = 0;
-            double num2 = 0;
-            string escolha;
-            double resultado;
-            string DeNovo = "Y";
-            bool repetir1 = true;
-            bool repetir2 = true;
+            Console.WriteLine("Escolha uma operação:");
+            Console.WriteLine("1. Adição");
+            Console.WriteLine("2. Subtração");
+            Console.WriteLine("3. Multiplicação");
+            Console.WriteLine("4. Divisão");
+            Console.WriteLine("5. Sair");
 
-            Console.WriteLine("------------------------------------------------");
-            Console.WriteLine("                 Calculadora");
-            Console.WriteLine("------------------------------------------------");
-            while (DeNovo == "Y")
+            int escolha;
+            double num1, num2;
+
+            if (!int.TryParse(Console.ReadLine(), out escolha))
             {
-                while (repetir1)
-                {
-                    repetir1 = false;
-                    Console.Write("Escolha o primeiro número ");
-                    try
+                Console.WriteLine("Escolha inválida. Tente novamente.");
+                continue;
+            }
+
+            if (escolha == 5)
+            {
+                sair = true;
+                continue;
+            }
+
+            Console.WriteLine("Digite o primeiro número:");
+            if (!double.TryParse(Console.ReadLine(), out num1))
+            {
+                Console.WriteLine("Número inválido. Tente novamente.");
+                continue;
+            }
+
+            Console.WriteLine("Digite o segundo número:");
+            if (!double.TryParse(Console.ReadLine(), out num2))
+            {
+                Console.WriteLine("Número inválido. Tente novamente.");
+                continue;
+            }
+
+            double resultado = 0;
+            string operacao = "";
+
+            switch (escolha)
+            {
+                case 1:
+                    resultado = num1 + num2;
+                    operacao = "adição";
+                    break;
+                case 2:
+                    resultado = num1 - num2;
+                    operacao = "subtração";
+                    break;
+                case 3:
+                    resultado = num1 * num2;
+                    operacao = "multiplicação";
+                    break;
+                case 4:
+                    if (num2 == 0)
                     {
-                        num1 = Convert.ToDouble(Console.ReadLine());
+                        Console.WriteLine("Não é possível dividir por zero.");
+                        continue;
                     }
-                    catch (Exception)
-                    {
-                        Console.WriteLine("digite um número por favor");
-                        repetir1 = true;
-                    }
-                }
-                while (repetir2)
-                {
-                    repetir2 = false;
-                    Console.Write("Escolha o segundo número ");
-                    try
-                    {
-                        num2 = Convert.ToDouble(Console.ReadLine());
-                    }
-                    catch (Exception)
-                    {
-                        Console.WriteLine("digite um número por favor");
-                        repetir2 = true;
-                    }
-                }
-
-                Console.WriteLine("Escolha a operação");
-                Console.WriteLine("1 - Adição");
-                Console.WriteLine("2 - Subtração");
-                Console.WriteLine("3 - Multiplicação");
-                Console.WriteLine("4 -  Divisão");
-
-                escolha = Console.ReadLine();
-                switch (escolha)
-                {
-                    case "1":
-                        resultado = Adição(num1, num2);
-                        Console.WriteLine($"O resultado é {resultado}");
-                        break;
-
-                    case "2":
-                        resultado = Subtração(num1, num2);
-                        Console.WriteLine($"O resultado é {resultado}");
-                        break;
-
-                    case "3":
-                        resultado = Multiplicação(num1, num2);
-                        Console.WriteLine($"O resultado é {resultado}");
-                        break;
-
-                    case "4":
-                        resultado = Divisão(num1, num2);
-                        Console.WriteLine($"O resultado é {resultado}");
-                        break;
-                }
-                Console.WriteLine("Usar Calculadora novamente ? (Y/N)");
-                DeNovo = Console.ReadLine().ToUpper();
+                    resultado = num1 / num2;
+                    operacao = "divisão";
+                    break;
+                default:
+                    Console.WriteLine("Escolha inválida. Tente novamente.");
+                    continue;
             }
 
-            static double Adição(double num1, double num2)
-            {
-                return num1 + num2;
-            }
-
-            static double Subtração(double num1, double num2)
-            {
-                return num1 - num2;
-            }
-
-            static double Multiplicação(double num1, double num2)
-            {
-                return num1 * num2;
-            }
-
-            static double Divisão(double num1, double num2)
-            {
-                return num1 / num2;
-            }
-            Console.ReadKey();
-        }
+            Console.WriteLine($"O resultado da {operacao} é: {resultado}");
+            Console.WriteLine();
+        } while (!sair);
     }
 }
